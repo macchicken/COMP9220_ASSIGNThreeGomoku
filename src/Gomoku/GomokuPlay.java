@@ -47,11 +47,9 @@ public class GomokuPlay {
 	private CommandType processCommand(String command,String player){
 		CommandType ct=validCommand(command);
 		if (ct==null){System.out.println("Invalid command,Please re-type");return null;}
-		else{
 		boolean modified=board.modifyBoard(command.trim(),player,ct);
 		if (!modified){System.out.println("Invalid command,Please re-type");return null;}
-		else{
-			return ct;}}
+		return ct;
 	}
 
 	private String switchPlayer(String player){

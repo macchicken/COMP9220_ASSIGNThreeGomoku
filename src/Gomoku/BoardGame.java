@@ -5,8 +5,8 @@ public abstract class BoardGame {
 	protected String[][] b;
 	protected int steps;
 	protected ChessGameRule gameRule;
-	protected int lengthX=15;
-	protected int lengthY=15;
+	protected int lengthX;
+	protected int lengthY;
 
 	public abstract void setup();
 
