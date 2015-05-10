@@ -8,11 +8,11 @@ public class GomokuBoard extends BoardGame {
 	private GomokuCareTaker careTaker;
 	
 	public GomokuBoard() {
+		lengthX=15;
+		lengthY=15;
 		setup();
 		steps = 0;
 		careTaker=new GomokuCareTaker();
-		lengthX=15;
-		lengthY=15;
 	}
 
 	@Override

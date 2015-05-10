@@ -25,7 +25,7 @@ public class GomokuPlay {
 			CommandType ct=null;
 			long begin=System.currentTimeMillis();long stop=begin;
 			do {
-				command=Tools.readInput(timeout-begin+stop);
+				command=Tools.readInput(timeout-stop+begin);
 				if (command==null){break;}
 				ct=processCommand(command, player);
 				stop=System.currentTimeMillis();
