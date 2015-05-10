@@ -41,7 +41,7 @@ public class GomokuPlay {
 				player=switchPlayer(player);
 			}
 		}
-		displayResult(winner);
+		displayResult();
 	}
 
 	private CommandType processCommand(String command,String player){
@@ -67,10 +67,10 @@ public class GomokuPlay {
 		return null;
 	}
 	
-	public void displayResult(int i) {
-		if (i == 0) {
+	public void displayResult() {
+		if (winner == 0) {
 			System.out.println("Draw!");
-		} else if (i == 1) {
+		} else if (winner == 1) {
 			System.out.println("Black win!");
 		} else {
 			System.out.println("White win!");
