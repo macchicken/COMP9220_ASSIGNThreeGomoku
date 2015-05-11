@@ -15,4 +15,12 @@ public class Constants {
 		return color.equals(black)?"Black":"White";
 	}
 
+	public static CommandType validCommand(String command) {
+		command=command.trim();
+		if (Constants.movePattern.matcher(command).matches()){return CommandType.MOVE;}
+		if (Constants.redoPattern.matcher(command).matches()){return CommandType.REDO;}
+		if (Constants.undoPattern.matcher(command).matches()){return CommandType.UNDO;}
+		return null;
+	}
+
 }

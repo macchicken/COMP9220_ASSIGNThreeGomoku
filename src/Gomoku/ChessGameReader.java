@@ -2,10 +2,21 @@ package Gomoku;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Scanner;
 
-public class Tools {
+public class ChessGameReader {
 
-	private static int readInputStreamWithTimeout(InputStream is, byte[] buf, long timeoutMillis)
+	private Scanner scan;
+	private boolean timeouton;
+	
+	// switch to turn on the timeout on the inputstream reader
+	public ChessGameReader(boolean timeouton) {
+		if (!timeouton){
+			this.scan=new Scanner(System.in);
+		}
+	}
+
+	private int readInputStreamWithTimeout(InputStream is, byte[] buf, long timeoutMillis)
 			throws IOException {
 		int bufferOffset = 0;    //the internal storage buffer offset
 		long maxTimeMillis = System.currentTimeMillis() + timeoutMillis;//actual waiting time
@@ -28,7 +39,7 @@ public class Tools {
 		return bufferOffset;
 	}
 	
-	public static String readInput(long timeoutMillis) {
+	private String readInput(long timeoutMillis) {
 		if (timeoutMillis<=0){return null;}
 		byte[] inputData = new byte[10240];//set 10KB, should be enough for a simple console application
 		int readLength = 0;
@@ -41,5 +52,20 @@ public class Tools {
 		if (readLength > 0) {input=new String(inputData);input=input.trim();}
 		return input;
 	}
+	
+	public String nextLine(long timeout){
+		String input=null;
+		if (!timeouton) {
+			input = this.scan.nextLine();
+		}else{
+			input=readInput(timeout);
+		}
+		return input;
+	}
 
+	public void close(){
+		if (this.scan!=null) {
+			this.scan.close();
+		}
+	}
 }

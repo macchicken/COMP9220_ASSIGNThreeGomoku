@@ -6,12 +6,17 @@ public class GomokuPlay {
 	private BoardGame board;
 	private boolean end;
 	private int winner;// 0 draw, 1 Black win, 2 White win
+	private ChessGameReader reader;
 	private long timeout;
-
-	public GomokuPlay(int timeout) {
+	
+	public GomokuPlay(long timeout) {
 		end = false;
 		winner = 3;
-		this.timeout=timeout;
+		if (timeout<10000){
+			this.reader=new ChessGameReader(false);
+		}else{
+			this.reader=new ChessGameReader(true);
+		}
 	}
 
 
@@ -25,9 +30,14 @@ public class GomokuPlay {
 			CommandType ct=null;
 			long begin=System.currentTimeMillis();long stop=begin;
 			do {
-				command=Tools.readInput(timeout-stop+begin);
+				command=reader.nextLine(timeout-stop+begin);
 				if (command==null){break;}
-				ct=processCommand(command, player);
+				try {
+					ct=processCommand(command, player);
+				} catch (CommandFailException e) {
+					System.out.println(e.getMessage());
+					ct=null;
+				}
 				stop=System.currentTimeMillis();
 			} while (ct==null);
 			if (CommandType.MOVE.equals(ct)){needJudge=true;}
@@ -44,11 +54,13 @@ public class GomokuPlay {
 		displayResult();
 	}
 
-	private CommandType processCommand(String command,String player){
-		CommandType ct=validCommand(command);
-		if (ct==null){System.out.println("Invalid command,Please re-type");return null;}
-		boolean modified=board.modifyBoard(command.trim(),player,ct);
-		if (!modified){System.out.println("Invalid command,Please re-type");return null;}
+	// process and check if the command input is correct
+	private CommandType processCommand(String command,String player) throws CommandFailException{
+		CommandType ct=Constants.validCommand(command);
+		if (ct==null){throw new CommandFailException("Invalid command,Please re-type");}
+		int c=1;
+		if (Constants.white.equals(player)){c=2;}
+		board.setposition(command.trim(),c);
 		return ct;
 	}
 
@@ -58,15 +70,6 @@ public class GomokuPlay {
 		return player;
 	}
 
-	// Check if the command input is correct
-	private CommandType validCommand(String command) {
-		command=command.trim();
-		if (Constants.movePattern.matcher(command).matches()){return CommandType.MOVE;}
-		if (Constants.redoPattern.matcher(command).matches()){return CommandType.REDO;}
-		if (Constants.undoPattern.matcher(command).matches()){return CommandType.UNDO;}
-		return null;
-	}
-	
 	public void displayResult() {
 		if (winner == 0) {
 			System.out.println("Draw!");
@@ -76,6 +79,7 @@ public class GomokuPlay {
 			System.out.println("White win!");
 		}
 		board.displayBoard();
+		reader.close();
 	}
 
 	public void setBoard(BoardGame board) {

@@ -20,9 +20,7 @@ public abstract class BoardGame {
 
 	public abstract void displayBoard();
 	
-	public void setposition(String p, int c){}
-
-	public abstract boolean modifyBoard(String p,String c,CommandType ct);
+	public abstract void setposition(String p, int c) throws CommandFailException;
 
 	public int WinJudge() {// 0 draw, 1 Black win, 2 White win , 3 game continue
 		return 3;
@@ -32,4 +30,5 @@ public abstract class BoardGame {
 		this.gameRule = gameRule;
 	}
 
+	
 }

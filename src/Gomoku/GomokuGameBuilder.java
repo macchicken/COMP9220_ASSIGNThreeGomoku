@@ -2,12 +2,17 @@ package Gomoku;
 
 public class GomokuGameBuilder extends ChessGameBuilder {
 
-	private GomokuPlay gomokuPlay=new GomokuPlay(10000);
+	private GomokuPlay gomokuPlay;
 	private BoardGame boardGame;
 	
 	@Override
-	public void buildGameBoard() {
-		this.boardGame=new GomokuBoard();
+	public void buildGameBoard(int mode,long timeout) {
+		gomokuPlay=new GomokuPlay(timeout);
+		switch(mode){
+			case 1: this.boardGame = new GomokuBoard(15, 15);break;
+			case 2: this.boardGame = new GomokuModeTwoBoard(15, 15);break;
+			default: this.boardGame = new GomokuBoard(15, 15);break;
+		}
 	}
 
 	@Override
