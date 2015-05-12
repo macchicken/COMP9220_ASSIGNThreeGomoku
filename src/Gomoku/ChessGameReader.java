@@ -14,6 +14,7 @@ public class ChessGameReader {
 		if (!timeouton){
 			this.scan=new Scanner(System.in);
 		}
+		this.timeouton=timeouton;
 	}
 
 	private int readInputStreamWithTimeout(InputStream is, byte[] buf, long timeoutMillis)

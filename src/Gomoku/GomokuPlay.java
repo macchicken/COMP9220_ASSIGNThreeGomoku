@@ -16,6 +16,7 @@ public class GomokuPlay {
 			this.reader=new ChessGameReader(false);
 		}else{
 			this.reader=new ChessGameReader(true);
+			this.timeout=timeout;
 		}
 	}
 

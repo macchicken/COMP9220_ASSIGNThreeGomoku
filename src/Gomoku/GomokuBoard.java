@@ -37,6 +37,7 @@ public class GomokuBoard extends BoardGame {
 	@Override
 	// modify board based on the type of command
 	public void setposition(String p, int c) throws CommandFailException{
+		if (!Constants.movePattern.matcher(p).matches()){throw new CommandFailException("only support move function");}
 		String player=Constants.black;
 		if (c==2){player=Constants.white;}
 		String[] command=p.split(",");

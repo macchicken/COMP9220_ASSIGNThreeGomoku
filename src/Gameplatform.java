@@ -11,7 +11,7 @@ public class Gameplatform {
 		System.out.println("~~~~~~~ Welcome ~~~~~~~~ ");
 		ChessGameDirector director=new ChessGameDirector();
 		ChessGameBuilder builder=new GomokuGameBuilder(); 
-		director.construct(builder,2,9000);
+		director.construct(builder,2,60000);
 		game = builder.getChessGame();
 		game.start();
 		System.out.println("~~~~~~~ game finished ~~~~~~~~ ");
