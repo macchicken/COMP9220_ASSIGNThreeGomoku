@@ -80,27 +80,27 @@ public class GomokuModeTwoBoard extends GomokuBoard {
 		private int y;
 		private String c;
 
-		Stone() {
+		private Stone() {
 			x = 0;
 			y = 0;
 			c = Constants.empty;
 		}
 		
-		Stone(int x,int y,String c) {
+		private Stone(int x,int y,String c) {
 			this.x = x;
 			this.y = y;
 			this.c = c;
 		}
 
-		int getX() {
+		private int getX() {
 			return x;
 		}
 
-		int getY() {
+		private int getY() {
 			return y;
 		}
 		
-		String getC() {
+		private String getC() {
 			return c;
 		}
 		
