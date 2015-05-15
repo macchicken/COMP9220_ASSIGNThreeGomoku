@@ -32,15 +32,16 @@ public class GomokuPlay {
 			long begin=System.currentTimeMillis();long stop=begin;
 			do {
 				command=reader.nextLine(timeout-stop+begin);
-				if (command==null){break;}
+				if (command!=null){
 				try {
 					ct=processCommand(command, player);
 				} catch (CommandFailException e) {
 					System.out.println(e.getMessage());
 					ct=null;
-				}
+				}}
+				if (ct!=null){break;}
 				stop=System.currentTimeMillis();
-			} while (ct==null);
+			} while (timeout-stop+begin>0);
 			if (CommandType.MOVE.equals(ct)){needJudge=true;}
 			if (needJudge){
 				winner = board.WinJudge();
